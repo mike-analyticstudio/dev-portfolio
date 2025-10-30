@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "LaserengraveDataFlow_ci_cd"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b7e90f74-6348-b054-4f92-d7ce6757fa37"
+  }
+}

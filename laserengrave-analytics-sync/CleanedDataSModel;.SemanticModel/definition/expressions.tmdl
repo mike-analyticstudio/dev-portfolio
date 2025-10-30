@@ -1,0 +1,11 @@
+expression 'DirectLake - laserengravelakehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/4ecbaf18-d748-4bd3-b6cd-5743f135f2bf/8af43c6b-4303-4b0b-8459-7621117771f2", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 538cfede-34c5-4719-bc20-1104843794bb
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[Table2]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[customer_data_cleaned_dataflow]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[customer_raw_data]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[dimcustomer]"}},"objectType":"Table"}]
+

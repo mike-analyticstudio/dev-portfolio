@@ -1,0 +1,16 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["customer_data_cleaned"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table customer_data_cleaned
+ref table DateTableTemplate_8c6ac257-d325-43bd-a25b-389c44eba693
+ref table LocalDateTable_d9a120d0-5a96-4df5-af01-b1c02479cf1c
+

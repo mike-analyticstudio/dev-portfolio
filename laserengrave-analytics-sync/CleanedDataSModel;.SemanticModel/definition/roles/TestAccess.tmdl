@@ -1,0 +1,9 @@
+role TestAccess
+	modelPermission: read
+
+	tablePermission TestUserAccess
+
+	tablePermission UserAccess = [user_email] = SELECTEDVALUE(TestUserAccess[email])
+
+	annotation PBI_Id = 0d33abd27b5843a0a718ccbca68f92f0
+

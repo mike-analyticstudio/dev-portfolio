@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectLake - laserengravelakehouse"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop","CalcGroup"]
+
+ref table customer_data_cleaned
+ref table 'Age By Income'
+ref table Income_Deductable
+ref table dimdate
+ref table 'Time Intelligence'
+ref table AnalysedMetric
+ref table UserAccess
+ref table TestUserAccess
+ref table 'KPI Selector'
+ref table 'Axis Selector'
+
+ref role RegionAccess
+ref role TestAccess
+
