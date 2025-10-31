@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Inventory Operations",
+    "description": "Script generates the inventory operations data to analyse inventory movements and restock logistics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bc92a5b8-1ce9-bb24-4255-7562e7c61bcf"
+  }
+}

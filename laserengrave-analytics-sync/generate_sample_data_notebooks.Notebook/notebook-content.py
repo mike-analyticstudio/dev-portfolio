@@ -33,6 +33,26 @@
 # META   "language_group": "synapse_pyspark"
 # META }
 
+# MARKDOWN ********************
+
+#  This is a <span style="background-color:pink; color:black;">
+# native Python</span> script that generates data for a subscription service
+# 
+# - Data modelling
+# - engineering
+# - performance analytics (Power BI)
+# 
+# <mark>**This is a utility script that can be customized to regenerate any type of sample data for development, testing or other uses**</mark>
+# 
+# There are 2 stages in order to write the csv file to the base folder 'Files to maintain the file as an intact csv file (non-partitioned), because by default file is written into DELTA format across multiple nodes - partitions. 
+# ```
+# So if you call e.g. df_spark.write.mode("overwrite").option("header", True).csv("Files/customer_data")  #writes it to lakehouse as partitioned files
+# ```
+# We use **mssparkutils** from **notebookutils** library for the file movements - Only works in Microsoft Fabric
+# 1. So Stage 1: Write to a temporary location by Coalescing file to a single partition (<mark>df_spark.coalesce(1)</mark>) value 1 indicating combine all into 1 partition
+# 2. Stage 2: move the file to the base Lakehouse DELTA 'FILES' folder
+
+
 # CELL ********************
 
 import pandas as pd

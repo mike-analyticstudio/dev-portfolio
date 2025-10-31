@@ -20,6 +20,10 @@
 # META   }
 # META }
 
+# MARKDOWN ********************
+
+# <mark>**We want to see the properties of the customer dimension raw file**</mark>
+
 # CELL ********************
 
 # Welcome to your new notebook
@@ -34,6 +38,10 @@ display(spark.read.format("binaryFile").load("Files/dimension_customer.csv"))
 # META   "language_group": "synapse_pyspark"
 # META }
 
+# MARKDOWN ********************
+
+# <mark>List the files located in our lakehouse Delta Files folder</mark>
+
 # CELL ********************
 
 # List files in the Lakehouse Files folder
@@ -46,6 +54,10 @@ display(spark.read.format("binaryFile").load("Files"))
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# MARKDOWN ********************
+
+# **Quick visual inspection of the customer csv raw data - include the headers - show us the top 5 rows**
 
 # CELL ********************
 
@@ -64,6 +76,10 @@ df.show(5)
 # META   "language_group": "synapse_pyspark"
 # META }
 
+# MARKDOWN ********************
+
+# Write csv file now placed in a DataFrame memory to a parquet format of file location provided - so file would be written to a folder <span style="background-color:pink; color:black;">**customer_data_parquet**</span>
+
 # CELL ********************
 
 # Write DataFrame to Parquet format
@@ -76,6 +92,10 @@ df.write.mode("overwrite").parquet(parquet_path)
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# MARKDOWN ********************
+
+# preview the parquet file created from the folder **customer_data_parquet**
 
 # CELL ********************
 
@@ -90,6 +110,10 @@ df_parquet.show(5)
 # META   "language_group": "synapse_pyspark"
 # META }
 
+# MARKDOWN ********************
+
+# **Save data to SQL Lakehouse table**
+
 # CELL ********************
 
 # Save as a Lakehouse table
@@ -102,6 +126,10 @@ df_parquet.write.mode("overwrite").saveAsTable("dimcustomer")
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# MARKDOWN ********************
+
+# <mark>**select a few records to show delta table created and contains data**</mark>
 
 # CELL ********************
 
