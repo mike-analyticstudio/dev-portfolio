@@ -202,6 +202,33 @@ print("customer_data.csv has been created.")
 
 # CELL ********************
 
+#save to SQL table 
+df_spark.write.mode("overwrite").saveAsTable("customer_data")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df = spark.sql("SELECT * FROM laserengravelakehouse.customer_data LIMIT 1000")
+display(df)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df = spark.read.format("csv").option("header","true").load("Files/customer_data.csv")
+# df now is a Spark DataFrame containing CSV data from "Files/customer_data.csv".
+display(df)
 
 # METADATA ********************
 

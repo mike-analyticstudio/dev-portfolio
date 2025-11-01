@@ -1,12 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "Notebook",
-    "displayName": "GenerateAnalyticDates_notebooks",
-    "description": "New notebook"
+    "type": "Dataflow",
+    "displayName": "customer_data_dataflow"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "8bd8971e-c2aa-9e4a-4575-b2143214625d"
+    "logicalId": "8ea6a747-3076-8b14-4ccc-6b088c9f49a7"
   }
 }

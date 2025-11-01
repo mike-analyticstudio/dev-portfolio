@@ -20,18 +20,14 @@
 # META   }
 # META }
 
-# CELL ********************
+# MARKDOWN ********************
 
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
+# <mark>**Inventory Distribution and Management Data**</mark>
+# 
+# 1. This is a generated data sample that relates to realistic inventory management and distribution processes 
+# 
+# 2. For stock levels, restocking behavior, lead times, and geographic consistency
 
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
 
 # CELL ********************
 
@@ -151,6 +147,8 @@ df.to_csv("inventory_operations_data.csv", index=False)
 #convert to spark dataframe
 df_spark = spark.createDataFrame(df)
 
+df_spark.write.mode("overwrite").saveAsTable("inventory_operations_data")
+
 #I want the file saved in the base 'Files' folder as is - needs a few steps urggg
 df_spark.coalesce(1) \
     .write.mode("overwrite") \
@@ -185,6 +183,22 @@ mssparkutils.fs.rm(source_path, recurse=True)
 
 print("✅ Generated 'inventory_operations_data.csv' with 5000 rows and NeedsRestock flag.")
 
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# **Query to preview our created SQL table**
+
+# CELL ********************
+
+df = spark.sql("SELECT * FROM laserengravelakehouse.inventory_operations_data LIMIT 1000")
+display(df)
 
 # METADATA ********************
 

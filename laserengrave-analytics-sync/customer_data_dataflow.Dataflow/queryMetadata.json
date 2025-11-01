@@ -1,0 +1,20 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "customer_data_dataflow",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "customer_data": {
+      "queryId": "0c6c323d-61b8-4361-af3f-4aacab1dff27",
+      "queryName": "customer_data"
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"78231fce-8c63-41ce-a328-9d7e4ebb0e6e\",\"DatasourceId\":\"e05681c2-cfe3-447c-ab07-5e0d58c37356\"}"
+    }
+  ]
+}

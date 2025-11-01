@@ -20,18 +20,14 @@
 # META   }
 # META }
 
-# CELL ********************
+# MARKDOWN ********************
 
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
+# <mark>**Customer Churn Data**</mark>
+# 
+# This script generates Customer churn data - also called attrition). This data is meant to measure how our company maintains our customer retention. 
+# 
+# <span style="background-color:pink">Constantly analysing to provide various innovative incentives to retain our existing customers.</span>
 
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
 
 # CELL ********************
 
@@ -155,6 +151,9 @@ df.to_csv("fabric_customer_churn_data.csv", index=False)
 #convert to spark dataframe
 df_spark = spark.createDataFrame(df)
 
+#save to SQL table 
+df_spark.write.mode("overwrite").saveAsTable("customer_churn_data")
+
 #I want the file saved in the base 'Files' folder as is - needs a few steps urggg
 df_spark.coalesce(1) \
     .write.mode("overwrite") \
@@ -186,13 +185,23 @@ files = mssparkutils.fs.ls("Files/tmp_customer_churn_data")    # only a microsof
 # Find the part file (the real CSV)
 csv_file_path = [f.path for f in files if f.path.endswith(".csv")][0]
 
+
+# Source and destination paths
+source_path = "Files/tmp_customer_churn_data"
+dest_path = "Files/customer_churn_data.csv"
+
+# Delete existing destination if it exists
+if mssparkutils.fs.exists(dest_path):
+    print(f"Deleting existing file at {dest_path} ...")
+    mssparkutils.fs.rm(dest_path, recurse=True)
+
 # Move and rename to customer_data.csv in the root Files folder
-mssparkutils.fs.mv(csv_file_path, "Files/customer_churn_data.csv")
+mssparkutils.fs.mv(csv_file_path, dest_path)
 
 # Optional: clean up temp folder
-mssparkutils.fs.rm("Files/tmp_customer_churn_data", recurse=True)
+mssparkutils.fs.rm(source_path, recurse=True)
 
-print("✅ Generated fabric_customer_churn_data.csv with 5000 rows.")
+print("✅ Generated fabric_customer_churn_data.csv.")
 
 
 # METADATA ********************
