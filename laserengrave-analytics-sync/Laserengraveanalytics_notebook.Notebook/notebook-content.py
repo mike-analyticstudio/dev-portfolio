@@ -132,7 +132,7 @@ df_clean = df_clean.toDF(*new_column_names)
 # CELL ********************
 
 # Clean and validate
-valid_countries = ["NG", "IN", "DE", "US", "GB"]
+valid_countries = ['United States', 'United Kingdom', 'Nigeria', 'India', 'Germany']
 valid_subscriptions = ["Free", "Premium", "Trial", "Enterprise", "Unknown"]
 
 df_cleaned2 = df_clean \

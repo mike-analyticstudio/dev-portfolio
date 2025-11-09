@@ -156,6 +156,16 @@ table dimdate
 
 		annotation SummarizationSetBy = Automatic
 
+	column sk_date
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bd80bdd-3b8d-4e67-8bba-149d56a73ad5
+		sourceLineageTag: sk_date
+		summarizeBy: none
+		sourceColumn: sk_date
+
+		annotation SummarizationSetBy = Automatic
+
 	hierarchy 'Date Period'
 		lineageTag: 32e2018f-d413-49e6-a93f-7a80388bf67b
 

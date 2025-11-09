@@ -11,7 +11,7 @@ annotation PBI_QueryOrder = ["DirectLake - laserengravelakehouse"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop","CalcGroup"]
+annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop","CalcGroup","DirectLakeOnOneLakeInWeb"]
 
 ref table customer_data_cleaned
 ref table 'Age By Income'

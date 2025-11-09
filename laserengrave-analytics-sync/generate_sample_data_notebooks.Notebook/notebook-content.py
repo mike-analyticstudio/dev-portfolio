@@ -33,6 +33,19 @@
 # META   "language_group": "synapse_pyspark"
 # META }
 
+# CELL ********************
+
+df = spark.read.format("csv").option("header","true").load("Files/customer_data.csv")
+# df now is a Spark DataFrame containing CSV data from "Files/customer_data.csv".
+display(df)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # MARKDOWN ********************
 
 #  This is a <span style="background-color:pink; color:black;">
@@ -75,7 +88,8 @@ np.random.seed(42)
 # Constants
 num_rows = 2000
 subscription_types = ['Free', 'Premium', 'Trial', 'Enterprise', 'Unknown']
-country_codes = ['US', 'GB', 'NG', 'IN', 'DE']
+country_codes = ['United States', 'United Kingdom', 'Nigeria', 'India', 'Germany']
+
 referral_pool = [fake.lexify(text='REF????') for _ in range(100)] + [''] * 100  # Some blanks
 
 def generate_customer_id(i):
@@ -228,6 +242,18 @@ display(df)
 
 df = spark.read.format("csv").option("header","true").load("Files/customer_data.csv")
 # df now is a Spark DataFrame containing CSV data from "Files/customer_data.csv".
+display(df)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df = spark.sql("SELECT * FROM laserengravelakehouse.customer_data LIMIT 1000")
 display(df)
 
 # METADATA ********************
