@@ -75,7 +75,7 @@ territories = {
 }
 
 warehouses = {"North": "WH1", "South": "WH2", "East": "WH3", "West": "WH4"}
-suppliers = ["SupplierX", "SupplierY", "SupplierZ"]
+suppliers = ["Wickes", "Screwfix", "Toolstation"]
 
 products = {
     "Electronics": ["Widget A", "Widget B", "Gizmo C"],
@@ -108,7 +108,7 @@ for i in range(1, n+1):
     territory, lat, lon = choose_territory(region)
     warehouse = warehouses[region]
     supplier = random.choice(suppliers)
-    lead_time = int(np.random.normal(loc={"SupplierX":5,"SupplierY":6,"SupplierZ":4}[supplier], scale=1))
+    lead_time = int(np.random.normal(loc={"Wickes":5,"Screwfix":6,"Toolstation":4}[supplier], scale=1))
     lead_time = max(2, lead_time)
     category, product_name = choose_product()
     # Stock distribution varies by category
