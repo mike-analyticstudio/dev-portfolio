@@ -1,0 +1,50 @@
+table 'Cycle Accuracy Criteria'
+	lineageTag: a55780ee-1bcf-497a-aa47-24d584dec0d5
+
+	column 'Cycle Accuracy Criteria'
+		lineageTag: be723b8b-fb04-4f6e-8938-18fa8c9f6422
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Cycle Accuracy Criteria Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Cycle Accuracy Criteria Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cycle Accuracy Criteria Fields'
+		isHidden
+		lineageTag: f4960a69-627e-4488-8a76-abb479c62430
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Cycle Accuracy Criteria Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cycle Accuracy Criteria Order'
+		isHidden
+		formatString: 0
+		lineageTag: 702db1b5-f96e-4307-93be-becc92e53d02
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Cycle Accuracy Criteria' = calculated
+		mode: import
+		source =
+				{
+				    ("Region", NAMEOF(Dim_Location[Region]), 0),
+				    ("Territory", NAMEOF(Dim_Location[Territory]), 1),
+				    ("Warehouse", NAMEOF(Dim_Location[Warehouse]), 2),
+				    ("Product", NAMEOF(Dim_Product[ProductName]), 4)
+				}
+
+	annotation PBI_Id = ba8946b487764da49e607de1ac66a5a8
+

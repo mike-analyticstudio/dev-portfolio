@@ -1,0 +1,754 @@
+table Fact_Inventory_Process
+	lineageTag: e1cb6bea-bd89-490b-b504-d9c4a050fc2b
+	sourceLineageTag: [dbo].[Fact_Inventory_Process]
+
+	measure 'Inventory Turnover' = ```
+			
+			DIVIDE(
+			    SUMX(Fact_Inventory_Process, (Fact_Inventory_Process[UnitCost_Fabricated] * Fact_Inventory_Process[UnitSold_Fabricated])),
+			    AVERAGEX(
+			        DATESYTD(dimdate[Date]),
+			        Fact_Inventory_Process[InventoryQty]
+			    )
+			)
+			
+			
+			
+			/*Inventory turnover measures how efficiently a company sells and replaces its inventory over a specific period, typically by dividing Cost of Goods 
+			Sold (COGS) by average inventory. A higher turnover means faster sales and leaner operations, while a lower turnover may signal overstocking or weak demand.*/
+			
+			```
+		formatString: #,0.00
+		lineageTag: 8c39d837-531d-4d9d-93c3-f797edec555c
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure InventoryQty = sum(Fact_Inventory_Process[StockLevel])
+		formatString: #,0.0
+		lineageTag: 5bdcea6e-e7f4-4b3b-85cc-9f5d2934a40f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure DaysOfInventory = ```
+			
+			DIVIDE(365, [Inventory Turnover])
+			
+			```
+		lineageTag: d9a6f780-db9f-416d-b33d-7124421b36ab
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure StockCount = COUNTROWS(Fact_Inventory_Process)
+		formatString: 0
+		lineageTag: ec66393b-4167-492a-befc-6acc485547e2
+
+		changedProperty = Name
+
+	measure Stockoutflg = ```
+			IF([smStockLevel] <= 0, TRUE(), FALSE())
+			
+			/*Indicates whether the current stock level is zero or below — i.e., the item is out of stock.*/
+			
+			```
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 857f9cfb-93bd-4e64-b273-78afe4cde6ff
+
+		changedProperty = Name
+
+	measure ReorderFlag =
+			IF([smStockLevel] <= [smReOrderPoint], TRUE(), FALSE())
+			
+			/*Signals when stock level is below the reorder point, meaning it's time to replenish.*/
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5dc1eae5-13f4-40f7-93be-0890edf2dbbe
+
+		changedProperty = Name
+
+	measure smStockLevel = Sum(Fact_Inventory_Process[StockLevel])
+		formatString: 0
+		lineageTag: 077863ef-a145-43ab-a77f-bbc3fbae2dda
+
+		changedProperty = Name
+
+	measure smReOrderPoint = sum(Fact_Inventory_Process[ReorderPoint])
+		formatString: 0
+		lineageTag: 886585c9-9b4a-4bca-bb24-ad1afd4eb2c2
+
+		changedProperty = Name
+
+	measure LeadTimeRiskFlag =
+			
+			IF(
+			    [smStockLevel] <= [smReOrderPoint] &&
+			    [smLeadTimeDays] > 7,
+			    TRUE(), FALSE()
+			)
+			/*
+			Flags items that are below reorder point and have long lead times, increasing risk of stockout.
+			*/
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f242f95a-cdf7-4d1c-a399-bc4413e651c9
+
+		changedProperty = Name
+
+	measure smLeadTimeDays = sum(Fact_Inventory_Process[LeadTimeDays])
+		formatString: 0
+		lineageTag: 7f0d00ab-0369-4b2f-a14c-9646b142ec7c
+
+		changedProperty = Name
+
+	measure 'Days of Inventory' = ```
+			
+			DIVIDE(365, [Inventory Turnover])
+			
+			```
+		lineageTag: e0e41333-538d-4124-9dde-4fb567e9dbe4
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Stockout Rate' = ```
+			
+			COALESCE(DIVIDE(
+			    CALCULATE([StockCount], KEEPFILTERS(Fact_Inventory_Process[Stockout_Flag] = TRUE())),
+			    [StockCount]
+			), 0.0)
+			
+			```
+		lineageTag: 9554ac27-3fda-48ec-9098-b7697eb13670
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure OverstockScore = ```
+			
+			DIVIDE([smStockLevel], [smReOrderPoint])
+			
+			/*a score to rank how badly overstocked an item is - use conditional formatting or bar charts to visualize severity*/
+			
+			```
+		lineageTag: 4295ace2-a683-407e-affb-4ee57e0bbe39
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure HighRiskSKUCount =
+			
+			VAR riskCount = COUNTROWS(
+			    FILTER(Fact_Inventory_Process,
+			        [LeadTimeRiskFlag] = TRUE()
+			    )
+			)
+			RETURN
+			IF(ISBLANK(riskCount), 0, riskCount)
+		formatString: 0
+		lineageTag: 4eb28d97-2845-47dc-be6d-db5b22f47f59
+
+		changedProperty = Name
+
+	measure msOverstockThreshold = [smReOrderPoint] * 2
+		formatString: 0
+		lineageTag: c6423795-2c7d-4a69-a24c-c1154dc5b69f
+
+		changedProperty = Name
+
+	measure 'Overstock Rate' = ```
+			
+			DIVIDE(
+			    CALCULATE([StockCount], Fact_Inventory_Process[StockLevel] > Fact_Inventory_Process[OverstockThreshold]),
+			    [StockCount]
+			)
+			
+			```
+		lineageTag: 8c261547-9e71-4283-b315-b1220d1bc783
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure OrderFulfillmentTime = ```
+			AVERAGE(Fact_Inventory_Process[LeadTimeDays])
+			
+			```
+		lineageTag: 0e8a8831-dbc7-40e0-91e1-944d9b535a5c
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Fulfillment Time' = ```
+			AVERAGEX(Fact_Inventory_Process, [OrderFulfillmentTime])
+			
+			```
+		lineageTag: 2f1436de-22d8-41d9-a4ca-d50498c8bc3e
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cycle Count Accuracy' = ```
+			
+			1 - DIVIDE(
+			    SUM(Fact_Inventory_Process[StockLevel]) - SUM(Fact_Inventory_Process[Physical Count]),
+			    SUM(Fact_Inventory_Process[StockLevel])
+			)
+			/*
+			Variance between what was registered in the system as stock levels compared with counts taken physically 
+			CountedQty = Pysical Count
+			SystemQty = StockLevel
+			*/
+			/*
+			DIVIDE(
+			    sum(Fact_Inventory_Process[Physical Count]),
+			    SUM(Fact_Inventory_Process[StockLevel])
+			)
+			*/
+			
+			```
+		formatString: 0.000%;-0.000%;0.000%
+		lineageTag: 8e3761a8-6d06-4099-8eb2-8f582ce7760a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure CountOfErrorRows = ```
+			
+			CALCULATE(
+			    COUNTROWS(Fact_Inventory_Process),
+			    Fact_Inventory_Process[sk_valid] = 2
+			)
+			
+			```
+		formatString: 0
+		lineageTag: eecd5df4-7853-46a0-a104-a39710e54b2b
+
+		changedProperty = Name
+
+	measure CountOfValidRows =
+			
+			CALCULATE(
+			    COUNTROWS(Fact_Inventory_Process),
+			    Fact_Inventory_Process[sk_valid] = 1
+			)
+		formatString: 0
+		lineageTag: c41f4547-b342-4996-87ad-46bb8a3173f1
+
+		changedProperty = Name
+
+	measure InvalidRowRate = ```
+			
+			DIVIDE(
+			    [CountOfErrorRows],
+			    [StockCount],
+			    0
+			)
+			
+			```
+		lineageTag: 5933bd7e-c7df-4f87-a690-2daf50a46230
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure NeedsAction = ```
+			
+			IF(
+			  [Stockoutflg] = TRUE() ||
+			  [ReorderFlag] = TRUE() ||
+			  [LeadTimeRiskFlag] = TRUE(),
+			  TRUE(), FALSE()
+			)
+			
+			```
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 20a42e4b-cbf0-40a4-8ed2-97d713005b1c
+
+		changedProperty = Name
+
+	measure StockOutCount = ```
+			
+			VAR _territoryFilter =
+			    VALUES(Dim_Location[sk_location])
+			VAR _stockoutCount =
+			    CALCULATE(
+			        [StockCount],
+			        KEEPFILTERS(Fact_Inventory_Process[Stockout_Flag] = TRUE()),
+			        TREATAS(_territoryFilter, Fact_Inventory_Process[sk_location])
+			    )
+			RETURN
+			    //COALESCE(_stockoutCount, 0)
+			    _stockoutCount
+			
+			/* reapply the current Territory filter manually using TREATAS.*/
+			
+			```
+		formatString: 0
+		lineageTag: 968b8f20-683b-48d9-9739-e7b04be0ae33
+
+		changedProperty = Name
+
+	measure OverstockedCount = CALCULATE([StockCount], Fact_Inventory_Process[IsOverstocked] = TRUE)
+		formatString: 0
+		lineageTag: ce7605bf-4d28-47b1-9aef-2892e91a1e18
+
+		changedProperty = Name
+
+	measure IsOverStockedColour = ```
+			
+			/*VAR overstocked = SELECTEDVALUE(Fact_Inventory_Process[IsOverstocked])
+			RETURN
+			IF(
+			    overstocked = TRUE,
+			    "#FF0000",   -- light red
+			    "#93C47D"    -- green
+			)*/
+			VAR overstocked = SELECTEDVALUE(Fact_Inventory_Process[IsOverstocked])
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    overstocked = TRUE(), "#FF4444",     -- light red
+			    overstocked = FALSE(), "#00FF11",    -- green
+			    "#FFFFFF"                            -- default white
+			)
+			
+			
+			```
+		lineageTag: 85ba66a9-9945-4c11-a2a0-d8d0e9850f23
+
+		changedProperty = Name
+
+	measure DummyForColor = ```
+			" "
+			
+			```
+		lineageTag: 8f666b3f-4998-4205-9c17-03196c2b520d
+
+		changedProperty = Name
+
+	measure InventoryStatusColour = ```
+			
+			VAR stockout = SELECTEDVALUE(Fact_Inventory_Process[Stockout_Flag])
+			VAR overstocked = SELECTEDVALUE(Fact_Inventory_Process[IsOverstocked])
+			VAR leadtime = TRUE //SELECTEDVALUE(Fact_Inventory_Process[LeadTimeRiskFlag])
+			VAR restock = TRUE //SELECTEDVALUE(Fact_Inventory_Process[NeedsRestock])
+			
+			RETURN
+			IF(stockout = TRUE(), "#FF0000",         // 🔴 Stockout
+			    IF(overstocked = TRUE(), "#FF9900",  // 🟠 Overstocked
+			        IF(leadtime = TRUE(), "#FFFF00", // 🟡 Lead Time Risk
+			            IF(restock = TRUE(), "#00B0F0", // 🔵 Needs Restock
+			                "#93C47D"                // 🟢 Healthy
+			            )
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: bd617ba4-ce47-4c66-ba53-515adfe8f9a4
+
+		changedProperty = Name
+
+	measure testAverageByYTDInventoryQty =
+			AVERAGEX(
+			        DATESYTD(dimdate[Date]),
+			        Fact_Inventory_Process[InventoryQty]
+			    )
+		lineageTag: 5c403195-75c9-449a-bf8a-290ca131acdb
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure StockAccuracyCountColour = ```
+			
+			VAR cyclecount = [Cycle Count Accuracy]
+			RETURN
+			SWITCH(
+			    TRUE,
+			        cyclecount >= 1.00, "#93FF7D",
+			        cyclecount >= 0.58, "#FFFF00",
+			        cyclecount >= 0.45,  "#FF9900",
+			         "#FF0000")
+			 
+			```
+		lineageTag: 74c76529-85af-433d-b7d5-dee6ecc6bdfc
+
+		changedProperty = Name
+
+	measure MatchCountDifference = ```
+			ABS([smAStockccuracyMatch] - 100.00)
+			/*
+			CALCULATE([smStockLevel]- sum(Fact_Inventory_Process[Physical Count]),  NOT(ISBLANK(Fact_Inventory_Process[Physical Count])),  NOT(ISBLANK(Fact_Inventory_Process[StockLevel])))
+			*/
+			   
+			```
+		lineageTag: c82264b4-a6f7-4928-8d1c-40ee10a501b3
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AccuracyPercentage =
+			0/*CALCULATE((100 - [MatchCountDifference]),NOT(ISBLANK(Fact_Inventory_Process[Physical Count])),  NOT(ISBLANK(Fact_Inventory_Process[StockLevel])), NOT(ISBLANK(Dim_Location[Territory])),
+			NOT(ISBLANK(Dim_Product[ProductName])))*/
+		formatString: 0.00
+		lineageTag: 87ac2cd6-a857-4daf-a7fa-4bba04f6e732
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure smAStockccuracyMatch = sum(Fact_Inventory_Process[Stock Accuracy Difference])
+		lineageTag: 3f92b97d-1adb-40fb-b3dc-dba4c21de1a1
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure MatchStatusColour =
+			
+			VAR stockmatch = SELECTEDVALUE(Fact_Inventory_Process[StockMatchFlag])
+			
+			
+			RETURN
+			                IF(stockmatch = TRUE(), "#004225",   //Forest Grenn
+			                "#FF9900"                //  Orange
+			            )
+		lineageTag: b6aec5ca-fe53-4e92-b5f9-1e2a294ba0f0
+
+		changedProperty = Name
+
+	measure MatchFontColour =
+			
+			VAR stockmatch = SELECTEDVALUE(Fact_Inventory_Process[StockMatchFlag])
+			
+			
+			RETURN
+			                IF(stockmatch = TRUE(), "#FFFFFF",
+			                "#000000"                // black
+			            )
+		lineageTag: 7fc9874b-e3a3-470a-9464-646739a2bae8
+
+		changedProperty = Name
+
+	measure 'Average Inventory' =
+			AVERAGEX(
+			        DATESYTD(dimdate[Date]),
+			        Fact_Inventory_Process[InventoryQty]
+			    )
+		lineageTag: 9611a353-02aa-4430-9a29-08f8aeb0155c
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Inventory Turnover - Avg' = AVERAGEX(Fact_Inventory_Process, Fact_Inventory_Process[Inventory Turnover])
+		lineageTag: 414259af-9c6d-4186-8d82-a62c631f441f
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sk_date
+		dataType: int64
+		formatString: 0
+		lineageTag: 397646fa-e335-47b0-b380-0d51cf1098f6
+		sourceLineageTag: sk_date
+		summarizeBy: none
+		sourceColumn: sk_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b3e099e-28a5-43b2-a560-7ec68c011cce
+		sourceLineageTag: sk_product
+		summarizeBy: none
+		sourceColumn: sk_product
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_supplier
+		dataType: int64
+		formatString: 0
+		lineageTag: 54d5f898-a312-40f2-aa53-34b6cdc3246d
+		sourceLineageTag: sk_supplier
+		summarizeBy: none
+		sourceColumn: sk_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_status
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c483c68-711e-45a4-adfa-677efc0110da
+		sourceLineageTag: sk_status
+		summarizeBy: none
+		sourceColumn: sk_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sk_supplier.1'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4034921e-7bfb-41ab-8741-32f73616a4d1
+		sourceLineageTag: sk_supplier.1
+		summarizeBy: sum
+		sourceColumn: sk_supplier.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_location
+		dataType: int64
+		formatString: 0
+		lineageTag: 9693e889-5199-4bd0-abb2-59cb07a1aaaa
+		sourceLineageTag: sk_location
+		summarizeBy: none
+		sourceColumn: sk_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Longitude
+		dataType: double
+		lineageTag: d2441231-7640-4608-b8e4-9bb50f5a6396
+		sourceLineageTag: Longitude
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column InvalidLastRestockDate
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6ab800a4-f614-46de-8130-20fee9dc6cb7
+		sourceLineageTag: InvalidLastRestockDate
+		summarizeBy: none
+		sourceColumn: InvalidLastRestockDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_valid
+		dataType: int64
+		formatString: 0
+		lineageTag: 873a70af-c6fe-4590-8ab2-be1349e564e1
+		sourceLineageTag: sk_valid
+		summarizeBy: none
+		sourceColumn: sk_valid
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: ab6fe995-509e-4fe6-aadd-203efff7f72f
+		sourceLineageTag: ProductID
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d22fda3-ac90-4796-836f-34db79320741
+		sourceLineageTag: StockLevel
+		summarizeBy: sum
+		sourceColumn: StockLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReorderPoint
+		dataType: int64
+		formatString: 0
+		lineageTag: b4bb5fba-42cf-47b1-8da5-3a8d47976715
+		sourceLineageTag: ReorderPoint
+		summarizeBy: sum
+		sourceColumn: ReorderPoint
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastRestockDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2fd3edc0-c271-464e-b1d5-934c31a3a9f6
+		sourceLineageTag: LastRestockDate
+		summarizeBy: none
+		sourceColumn: LastRestockDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column LeadTimeDays
+		dataType: int64
+		formatString: 0
+		lineageTag: e73b5f87-4d3a-4e3d-88ff-7f2feb2f630d
+		sourceLineageTag: LeadTimeDays
+		summarizeBy: sum
+		sourceColumn: LeadTimeDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: 8b988279-14d6-4d1d-ae83-0832e43f837c
+		sourceLineageTag: Latitude
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitSold_Fabricated
+		dataType: double
+		lineageTag: 6b003ccd-383d-494c-9f85-b8dd080c9096
+		sourceLineageTag: UnitSold_Fabricated
+		summarizeBy: sum
+		sourceColumn: UnitSold_Fabricated
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitCost_Fabricated
+		dataType: double
+		lineageTag: fee6df12-27de-4286-89cc-823a4d96da6b
+		sourceLineageTag: UnitCost_Fabricated
+		summarizeBy: sum
+		sourceColumn: UnitCost_Fabricated
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cogs
+		dataType: double
+		lineageTag: 7253122b-99a9-460f-b991-93b9d392670c
+		sourceLineageTag: cogs
+		summarizeBy: sum
+		sourceColumn: cogs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Stockout_Flag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7929ced5-b8d2-43a9-87cf-341c0771c5eb
+		sourceLineageTag: Stockout_Flag
+		summarizeBy: none
+		sourceColumn: Stockout_Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column OverStockFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5da14af5-a09f-4d2e-a04e-3350cc8369ff
+		sourceLineageTag: OverStockFlag
+		summarizeBy: none
+		sourceColumn: OverStockFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column OverstockThreshold
+		dataType: double
+		lineageTag: 19633184-f42c-46d6-b7a9-dffc06b82375
+		sourceLineageTag: OverstockThreshold
+		summarizeBy: sum
+		sourceColumn: OverstockThreshold
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Physical Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ad617e9-d7b2-44b0-9c24-88a33a04e487
+		sourceLineageTag: Physical Count
+		summarizeBy: sum
+		sourceColumn: Physical Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column RestockUrgency
+		dataType: string
+		lineageTag: c55e546b-d2b9-4c9c-9310-3d43a6f6c2ee
+		sourceLineageTag: RestockUrgency
+		summarizeBy: none
+		sourceColumn: RestockUrgency
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsOverstocked
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: af4b706d-42b6-48db-93ff-3dea16d3fd3b
+		sourceLineageTag: IsOverstocked
+		summarizeBy: none
+		sourceColumn: IsOverstocked
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockGap_
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fea6b47-1e7c-4151-82e6-898ceca3bd3f
+		sourceLineageTag: StockGap_
+		summarizeBy: sum
+		sourceColumn: StockGap_
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockMatchFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0904dc33-e941-4430-a801-c723c141e8ff
+		sourceLineageTag: StockMatchFlag
+		summarizeBy: none
+		sourceColumn: StockMatchFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock Accuracy Difference'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f9ca1631-8797-4390-bb97-e005ab268b37
+		sourceLineageTag: Stock Accuracy Difference
+		summarizeBy: sum
+		sourceColumn: Stock Accuracy Difference
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockLevelTracking
+		dataType: string
+		lineageTag: 7d9814a6-f2f4-4128-b1a2-650fc4c147c5
+		sourceLineageTag: StockLevelTracking
+		summarizeBy: none
+		sourceColumn: StockLevelTracking
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Inventory_Process = entity
+		mode: directLake
+		source
+			entityName: Fact_Inventory_Process
+			expressionSource: 'DirectLake - laserengravelakehouse'
+

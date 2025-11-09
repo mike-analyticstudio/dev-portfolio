@@ -1,0 +1,38 @@
+table Dim_Product
+	lineageTag: 7a1a420d-1048-40f9-80ff-d5d76dc0a0d0
+	sourceLineageTag: [dbo].[Dim_Product]
+
+	column sk_product
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b4cdee9-882f-4186-831b-44e98775daaf
+		sourceLineageTag: sk_product
+		summarizeBy: none
+		sourceColumn: sk_product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 9fef4a71-033b-43d0-9392-7733a6c558a6
+		sourceLineageTag: Category
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 32ebc24e-ec23-4a4b-8eda-369f958d3cca
+		sourceLineageTag: ProductName
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Product = entity
+		mode: directLake
+		source
+			entityName: Dim_Product
+			expressionSource: 'DirectLake - laserengravelakehouse'
+

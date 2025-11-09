@@ -1,0 +1,63 @@
+table customer_data_cleaned
+	lineageTag: 1e647a27-b380-41f5-a05c-fdc56bfaad6a
+
+	column customer_id
+		dataType: string
+		lineageTag: 706abf4c-caa7-4176-b5c6-f51aa7d6383b
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 6fcbd6d7-26f3-429a-ae8b-c0eb3409515b
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date_parsed
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c672dcbf-df48-4618-8b3c-7f3b854a58c5
+		summarizeBy: none
+		sourceColumn: signup_date_parsed
+
+		variation Variation
+			isDefault
+			relationship: a1405cde-90cf-4d0f-8181-726d7824638d
+			defaultHierarchy: LocalDateTable_d9a120d0-5a96-4df5-af01-b1c02479cf1c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column age_clean
+		dataType: int64
+		formatString: 0
+		lineageTag: 26af5ef5-6c57-4645-a979-aa95eb1634f0
+		summarizeBy: sum
+		sourceColumn: age_clean
+
+		annotation SummarizationSetBy = Automatic
+
+	column income_clean
+		dataType: double
+		lineageTag: cc3d00a5-36a7-4849-9399-ab6eca6c13e7
+		summarizeBy: sum
+		sourceColumn: income_clean
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition customer_data_cleaned = m
+		mode: import
+		source =
+				let
+				  Source = Sql.Database("ogipfysxm42elex52jemk6io6m-dcx4wtsi27juxnwnk5b7cnpsx4.datawarehouse.fabric.microsoft.com", "Laserengravelakehouse"),
+				  #"Navigation 1" = Source{[Schema = "dbo", Item = "customer_data_cleaned"]}[Data]
+				in
+				  #"Navigation 1"
+

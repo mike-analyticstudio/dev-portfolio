@@ -1,0 +1,52 @@
+table 'Axis Selector'
+	lineageTag: 98893d77-2fe3-49b3-8db2-a40f02ec6c6e
+
+	column 'Axis Selector'
+		lineageTag: adb065c1-0c8b-401e-8aa4-44faa61dde89
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Axis Selector Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Axis Selector Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Axis Selector Fields'
+		isHidden
+		lineageTag: c50974d4-136d-4f37-b158-8f798e15f3b5
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Axis Selector Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Axis Selector Order'
+		isHidden
+		formatString: 0
+		lineageTag: d7f97247-ed80-47b9-80b0-bd56534eaf7c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Axis Selector' = calculated
+		mode: import
+		source =
+				{
+				    ("average Income", NAMEOF('customer_data_cleaned'[average Income]), 0),
+				    ("customercount", NAMEOF('customer_data_cleaned'[customercount]), 1),
+				    ("valid_signup %", NAMEOF('customer_data_cleaned'[valid_signup %]), 2),
+				    ("subscription_type", NAMEOF('customer_data_cleaned'[subscription_type]), 3),
+				    ("country_code", NAMEOF('customer_data_cleaned'[country_code]), 4),
+				     ("total income", NAMEOF('customer_data_cleaned'[sum_Income]), 5)
+				}
+
+	annotation PBI_Id = f058be1aeeed4a1ba25e9014aa84b04d
+

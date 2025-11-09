@@ -1,0 +1,48 @@
+table Income_Deductable
+	lineageTag: 4af296ef-da1a-48f2-ac50-c5218cbd54f0
+
+	column Income_Deductable
+		lineageTag: 9f772988-1c20-46bb-b1c1-6fb16e868543
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Income_Deductable Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Income_Deductable Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income_Deductable Fields'
+		isHidden
+		lineageTag: 2da5a176-b198-4de2-a8aa-e54269dc8318
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Income_Deductable Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income_Deductable Order'
+		isHidden
+		formatString: 0
+		lineageTag: c22965e3-c68d-418c-b664-8665aa079384
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Income_Deductable = calculated
+		mode: import
+		source =
+				{
+				    ("Income_Post_Tax", NAMEOF('customer_data_cleaned'[Income_Post_Tax]), 0),
+				    ("income_clean", NAMEOF('customer_data_cleaned'[income_clean]), 1)
+				}
+
+	annotation PBI_Id = 9c6f9b2b427a4c0e9f9f0235d581595b
+

@@ -1,0 +1,105 @@
+table Dim_Location
+	lineageTag: ea9c899d-dc55-4db5-9ddc-183b1591288e
+	sourceLineageTag: [dbo].[Dim_Location]
+
+	column sk_location
+		dataType: int64
+		formatString: 0
+		lineageTag: ebe18d34-fcaf-4289-aac4-06aab2900b39
+		sourceLineageTag: sk_location
+		summarizeBy: none
+		sourceColumn: sk_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Continent
+		dataType: string
+		lineageTag: ae455a08-6ea4-45ae-b17f-776fa8b0bac4
+		sourceLineageTag: Continent
+		dataCategory: Continent
+		summarizeBy: none
+		sourceColumn: Continent
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: a9031219-c8f5-4a4a-93f3-2adc701bd05c
+		sourceLineageTag: Country
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 7d12274f-f858-4990-b03d-4d88163f6868
+		sourceLineageTag: Region
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Region
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: d6808385-c502-4974-8bc0-5a9d2e32c3a8
+		sourceLineageTag: Warehouse
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Territory
+		dataType: string
+		lineageTag: 3afbae05-ea54-428e-885c-ee360d2ef5d8
+		sourceLineageTag: Territory
+		dataCategory: County
+		summarizeBy: none
+		sourceColumn: Territory
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: 0bd6f897-b1a7-42c6-8fc9-ba3563f82dff
+		sourceLineageTag: Latitude
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: Latitude
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		lineageTag: a3d54d7d-4c75-45c5-9c8b-6c442247d13e
+		sourceLineageTag: Longitude
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: Longitude
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Dim_Location = entity
+		mode: directLake
+		source
+			entityName: Dim_Location
+			expressionSource: 'DirectLake - laserengravelakehouse'
+

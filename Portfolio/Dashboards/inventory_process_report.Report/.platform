@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "inventory_process_report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0588a6b2-ec5e-91e4-4d20-ed7635b91c92"
+  }
+}

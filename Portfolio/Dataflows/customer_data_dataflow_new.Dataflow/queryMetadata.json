@@ -1,0 +1,54 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "customer_data_dataflow",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "customer_data_from_dataflow_cleaned": {
+      "queryId": "ad9ff4f1-26bf-4219-9404-f7342138b42d",
+      "queryName": "customer_data_from_dataflow_cleaned",
+      "loadEnabled": false
+    },
+    "customer_data_from_dataflow_invalid": {
+      "queryId": "78663b0b-0266-4f75-9119-143acf99d7cd",
+      "queryName": "customer_data_from_dataflow_invalid",
+      "loadEnabled": false
+    },
+    "LastRefreshDate": {
+      "queryId": "d5661e7a-63ff-495e-aac6-7436d1f293d0",
+      "queryName": "LastRefreshDate",
+      "loadEnabled": false
+    },
+    "EnvironmentFlag": {
+      "queryId": "8b25dada-e333-4655-9423-cecf1ecdb6ee",
+      "queryName": "EnvironmentFlag",
+      "loadEnabled": false
+    },
+    "customer_data_from_dataflow_cleaned_DataDestination": {
+      "queryId": "94a684d1-704f-4e13-9cb8-3118ae243362",
+      "queryName": "customer_data_from_dataflow_cleaned_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "validRecordParam": {
+      "queryId": "e4592c16-c016-4bca-8f49-a55515cd766f",
+      "queryName": "validRecordParam",
+      "loadEnabled": false
+    },
+    "customer_data_from_dataflow_invalid_DataDestination": {
+      "queryId": "b98764b7-a6cc-4f0c-b653-8f8cb19849f6",
+      "queryName": "customer_data_from_dataflow_invalid_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"78231fce-8c63-41ce-a328-9d7e4ebb0e6e\",\"DatasourceId\":\"e05681c2-cfe3-447c-ab07-5e0d58c37356\"}"
+    }
+  ],
+  "parametric": true
+}

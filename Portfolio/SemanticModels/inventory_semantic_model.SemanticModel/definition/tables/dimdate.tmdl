@@ -1,0 +1,198 @@
+table dimdate
+	lineageTag: 51cc1873-b20b-4d5f-8978-8ca772a40ca1
+	sourceLineageTag: [dbo].[dimdate]
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: General Date
+		lineageTag: b8dd1d11-eb7e-4049-a9f7-13fd254b8a1d
+		sourceLineageTag: Date
+		summarizeBy: none
+		sourceColumn: Date
+		sortByColumn: Day
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 787b9a8b-56c2-489c-8490-1a36ccf25b60
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: fb96cfcb-c6bc-498e-a5b7-bb41cd27df06
+		sourceLineageTag: Month
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: b25150bd-07b9-4c84-bffe-f83bac232965
+		sourceLineageTag: MonthName
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: c3199cb6-ce4f-4961-98d8-4f58f06263b6
+		sourceLineageTag: Quarter
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterLabel
+		dataType: string
+		lineageTag: b38c685e-775b-4afc-ad48-e17838f8467e
+		sourceLineageTag: QuarterLabel
+		summarizeBy: none
+		sourceColumn: QuarterLabel
+		sortByColumn: Quarter
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalQuarter
+		dataType: string
+		lineageTag: 4d0a06a9-1f97-488d-ba66-ff9a2f3f6e95
+		sourceLineageTag: FiscalQuarter
+		summarizeBy: none
+		sourceColumn: FiscalQuarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column HolidayDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e07759c0-203b-4e5a-a5fc-270cc2803a13
+		sourceLineageTag: HolidayDate
+		summarizeBy: none
+		sourceColumn: HolidayDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsUKHoliday
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f0994ee1-9cc7-40fd-8a4e-3d6914e3754a
+		sourceLineageTag: IsUKHoliday
+		summarizeBy: none
+		sourceColumn: IsUKHoliday
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: c276d99c-55b8-4662-ac2c-2848e2d9c71b
+		sourceLineageTag: WeekOfYear
+		summarizeBy: none
+		sourceColumn: WeekOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		lineageTag: 71ac9bd9-8181-40f5-b59f-45a4e03e60f2
+		sourceLineageTag: Day
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		dataType: string
+		lineageTag: 1816a805-dbfd-45f8-8d78-6b8d5fc482ab
+		sourceLineageTag: DayOfWeek
+		summarizeBy: none
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ea24e3dc-1da9-4138-a8a4-018366471dcf
+		sourceLineageTag: IsWeekend
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 836fbe74-e6c0-43f9-b665-94ffa17ffc5e
+		sourceLineageTag: FiscalYear
+		summarizeBy: none
+		sourceColumn: FiscalYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: a7a43632-28f6-4f67-b5ff-82048a6ea2d5
+		sourceLineageTag: FiscalMonth
+		summarizeBy: none
+		sourceColumn: FiscalMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_date
+		dataType: int64
+		formatString: 0
+		lineageTag: d314475e-1ebd-44c3-93fb-dc8288e037f9
+		sourceLineageTag: sk_date
+		summarizeBy: none
+		sourceColumn: sk_date
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy Period
+		lineageTag: b3b731f6-5516-4523-9e95-f1eb7968ad01
+
+		level Year
+			lineageTag: 75d3f7fd-e376-4f37-bb71-b980882c4fee
+			column: Year
+
+		level QuarterLabel
+			lineageTag: 04d1aa53-f19a-4fe7-8e9e-c5f8d9e2dfc4
+			column: QuarterLabel
+
+		level MonthName
+			lineageTag: d774579c-4365-4622-905a-85ee3ac0b339
+			column: MonthName
+
+		level Date
+			lineageTag: d7cc2e72-124b-449c-b55b-7d8ea6fc6c6b
+			column: Date
+
+		changedProperty = Name
+
+	partition dimdate = entity
+		mode: directLake
+		source
+			entityName: dimdate
+			expressionSource: 'DirectLake - laserengravelakehouse'
+
