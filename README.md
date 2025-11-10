@@ -21,6 +21,7 @@ Repository Structure
 | [Portfolio/Screenshots](Portfolio/Screenshots) | Screenshots of various artifacts (Dataflows, Dashboards, Notebooks, Semantic Models, Pipelines) |
 | [Portfolio/CI-CD](Portfolio/CI-CD) | Deployment YAMLs, validation notebooks, and pipeline logs |
 
+For a quick visual illustration of the various artifacts, you can view the [screenshots](Portfolio/Screenshots) of the various module
 
 Visual Samples
 | Artifact | Thumbnail |
@@ -36,6 +37,7 @@ High Level Fabric Workspace Items [Workspace Artifacts](Portfolio/Screenshots)
 External References
 - **LinkedIn Portfolio Post:** [Add your LinkedIn link here]
 - **Azure DevOps Source (Private):** Available on request
+
 
 
 
