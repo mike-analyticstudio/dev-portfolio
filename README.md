@@ -1,20 +1,47 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Microsoft Fabric Data Engineering & Analytics Portfolio
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Welcome to my **Microsoft Fabric Data Engineer Portfolio** — a curated showcase of end-to-end data solutions developed in Microsoft Fabric, Power BI, and Azure DevOps.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Highlights
+- **Dataflows** – Automated ingestion pipelines using Power Query (M).
+- **Notebooks** – Python and Spark-based transformations in Fabric.
+- **Semantic Models** – Tabular models, measures, and relationships.
+- **Dashboards** – Power BI reports with field parameters and scorecards.
+- **CI/CD** – End-to-end deployment automation using YAML pipelines.
+  
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Repository Structure
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+| Folder | Description |
+|--------|--------------|
+| [Portfolio/Dataflows](Portfolio/Dataflows) | Power Query M scripts and data preparation logic |
+| [Portfolio/Notebooks](Portfolio/Notebooks) | Fabric notebooks with markdown annotations |
+| [Portfolio/SemanticModels](Portfolio/SemanticModels) | Model definitions and DAX measure scripts |
+| [Portfolio/Dashboards](Portfolio/Dashboards) | Power BI dashboards, scorecards, and visual exports |
+| [Portfolio/Screenshots](Portfolio/Screenshots) | Screenshots of various artifacts (Dataflows, Dashboards, Notebooks, Semantic Models, Pipelines) |
+| [Portfolio/CI-CD](Portfolio/CI-CD) | Deployment YAMLs, validation notebooks, and pipeline logs |
+
+For a quick visual illustration of the end-to-end workflow artifacts, you can view the [screenshots](Portfolio/Screenshots) of the various modules
+
+Visual Samples
+| Artifact | Thumbnail |
+|-----------|------------|
+| Dashboard | ![Dashboard](Portfolio/Dashboards/Screenshots/Dashboard_Thumbnail.png) |
+| Dataflow | ![Dataflow](Portfolio/Dataflows/Screenshots/Dataflow_Thumbnail.png) |
+| Semantic Model | ![Model](Portfolio/SemanticModels/screenshots/semantic_model_full.png) |
+
+
+High Level Fabric Workspace Items [Workspace Artifacts](Portfolio/Screenshots)
+
+
+External References
+- **LinkedIn Portfolio Post:** [Add your LinkedIn link here]
+- **Azure DevOps Source (Private):** Available on request
+
+
+
+
+
+
+
+
