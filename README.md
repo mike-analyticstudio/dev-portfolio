@@ -8,6 +8,7 @@ Highlights
 - **Semantic Models** – Tabular models, measures, and relationships.
 - **Dashboards** – Power BI reports with field parameters and scorecards.
 - **CI/CD** – End-to-end deployment automation using YAML pipelines.
+  
 
 Repository Structure
 
@@ -17,7 +18,9 @@ Repository Structure
 | [Portfolio/Notebooks](Portfolio/Notebooks) | Fabric notebooks with markdown annotations |
 | [Portfolio/SemanticModels](Portfolio/SemanticModels) | Model definitions and DAX measure scripts |
 | [Portfolio/Dashboards](Portfolio/Dashboards) | Power BI dashboards, scorecards, and visual exports |
+| [Portfolio/Screenshots](Portfolio/Screenshots) | Screenshots of various artifacts (Dataflows, Dashboards, Notebooks, Semantic Models, Pipelines) |
 | [Portfolio/CI-CD](Portfolio/CI-CD) | Deployment YAMLs, validation notebooks, and pipeline logs |
+
 
 Visual Samples
 | Artifact | Thumbnail |
@@ -26,11 +29,14 @@ Visual Samples
 | Dataflow | ![Dataflow](Portfolio/Dataflows/Screenshots/Dataflow_Thumbnail.png) |
 | Semantic Model | ![Model](Portfolio/SemanticModels/screenshots/semantic_model_full.png) |
 
+
 High Level Fabric Workspace Items [Workspace Artifacts](Portfolio/Screenshots)
+
 
 External References
 - **LinkedIn Portfolio Post:** [Add your LinkedIn link here]
 - **Azure DevOps Source (Private):** Available on request
+
 
 
 
