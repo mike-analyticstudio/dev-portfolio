@@ -26,10 +26,11 @@ Visual Samples
 | Dataflow | ![Dataflow](Portfolio/Dataflows/Screenshots/Dataflow_Thumbnail.png) |
 | Semantic Model | ![Model](Portfolio/SemanticModels/screenshots/semantic_model_full.png) |
 
-High Level Fabric Artifacts Fabric Items: (Portfolio/Screenshots)
+High Level Fabric Artifacts [Fabric Items](Portfolio/Dataflows)
 
 External References
 - **LinkedIn Portfolio Post:** [Add your LinkedIn link here]
 - **Azure DevOps Source (Private):** Available on request
+
 
 
