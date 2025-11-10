@@ -1,0 +1,41 @@
+table 'Time Intelligence'
+	lineageTag: 351b5797-7e24-42c9-a7ad-b76bea034ad2
+
+	calculationGroup
+
+		calculationItem MTD = CALCULATE(SELECTEDMEASURE(), DATESMTD('dimdate'[Date]))
+
+		calculationItem QTD = CALCULATE(SELECTEDMEASURE(), DATESQTD('dimdate'[Date]))
+
+		calculationItem YoY = CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('dimdate'[Date]))
+
+		calculationItem YTD = CALCULATE(SELECTEDMEASURE(), DATESYTD('dimdate'[Date]))
+
+		calculationItem YoY% = ```
+				
+				var CurrentMeasure = SELECTEDMEASURE() 
+				var Prior = CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('dimdate'[Date]))
+				RETURN DIVIDE(CurrentMEasure - Prior, Prior)
+				
+				```
+
+			formatStringDefinition = "0.00%"
+
+	column 'Calculation group column'
+		dataType: string
+		lineageTag: 1a5edfdc-4d8d-48be-b37f-1dfec1f25fac
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: f8c1b75d-beea-495e-b673-995cca79133d
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

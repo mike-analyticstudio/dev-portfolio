@@ -1,0 +1,29 @@
+table Dim_Status
+	lineageTag: eb0d330e-3603-468b-a8e8-e8fd1bf129b9
+	sourceLineageTag: [dbo].[Dim_Status]
+
+	column sk_status
+		dataType: int64
+		formatString: 0
+		lineageTag: e7b980d1-4124-4020-9b98-fc7002f97102
+		sourceLineageTag: sk_status
+		summarizeBy: none
+		sourceColumn: sk_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column NeedsRestock
+		dataType: string
+		lineageTag: 70b08dc7-d33c-4471-ac89-90adb7b9d1ec
+		sourceLineageTag: NeedsRestock
+		summarizeBy: none
+		sourceColumn: NeedsRestock
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Status = entity
+		mode: directLake
+		source
+			entityName: Dim_Status
+			expressionSource: 'DirectLake - laserengravelakehouse'
+

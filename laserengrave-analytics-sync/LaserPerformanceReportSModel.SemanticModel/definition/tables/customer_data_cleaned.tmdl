@@ -1,0 +1,117 @@
+table customer_data_cleaned
+	lineageTag: 1a093c72-7b30-44d9-8e64-bf805ea15bac
+	sourceLineageTag: [dbo].[customer_data_cleaned]
+
+	column referral_code
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 293923e9-4fa8-468f-932b-fb5a56c0ee14
+		sourceLineageTag: referral_code
+		summarizeBy: none
+		sourceColumn: referral_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_clean
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4f5bcd6b-d60b-4247-bd3a-8cd931a6945f
+		sourceLineageTag: age_clean
+		summarizeBy: sum
+		sourceColumn: age_clean
+
+		annotation SummarizationSetBy = Automatic
+
+	column income_clean
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 9ed53660-76da-4294-900f-a13509c66636
+		sourceLineageTag: income_clean
+		summarizeBy: sum
+		sourceColumn: income_clean
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column country_code
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b14771b5-8131-44ec-816e-b110300a0bf5
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone_number
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ef88c583-73cd-41fd-b837-c4deaf753df4
+		sourceLineageTag: phone_number
+		summarizeBy: none
+		sourceColumn: phone_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscription_type
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8da46e41-c793-4ae1-a23a-113a050399b7
+		sourceLineageTag: subscription_type
+		summarizeBy: none
+		sourceColumn: subscription_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_login
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d8638c02-2e7b-4502-bc68-5d7ce921a188
+		sourceLineageTag: last_login
+		summarizeBy: none
+		sourceColumn: last_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ca79827c-5731-456c-bfe1-e92fec993c95
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 64affad3-e4a2-4172-b1e2-23cf22b62d6a
+		sourceLineageTag: email
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date_parsed
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 8a4b7c68-0972-45b4-9044-a64ae7b3374d
+		sourceLineageTag: signup_date_parsed
+		summarizeBy: none
+		sourceColumn: signup_date_parsed
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_data_cleaned = entity
+		mode: directLake
+		source
+			entityName: customer_data_cleaned
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

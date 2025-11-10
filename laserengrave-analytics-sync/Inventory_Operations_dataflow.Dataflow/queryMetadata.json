@@ -1,0 +1,110 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "Inventory_Operations_dataflow",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "0eab8fe3-970d-4009-84fe-8853d683a8b7",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "dimdate": {
+      "queryId": "70344c16-3fb4-445d-b345-fc86ff498a9a",
+      "queryName": "dimdate",
+      "loadEnabled": false
+    },
+    "inventory_operations_data": {
+      "queryId": "b5d2ad3e-7683-4ba4-9d13-918bc9055606",
+      "queryName": "inventory_operations_data",
+      "loadEnabled": false
+    },
+    "Dim_Product": {
+      "queryId": "212ba20d-b041-4150-b43c-c6f3c046621f",
+      "queryName": "Dim_Product",
+      "loadEnabled": false
+    },
+    "Dim_Location": {
+      "queryId": "f16c0072-6e1d-4547-a635-46fcf04bf1a8",
+      "queryName": "Dim_Location",
+      "loadEnabled": false
+    },
+    "Dim_Supplier": {
+      "queryId": "59cc0e18-f10d-4deb-a4b1-9b87b81ce65f",
+      "queryName": "Dim_Supplier",
+      "loadEnabled": false
+    },
+    "Dim_Status": {
+      "queryId": "17448e6f-2ba1-46d2-937a-87c3046ae579",
+      "queryName": "Dim_Status",
+      "loadEnabled": false
+    },
+    "Fact_Inventory_Process": {
+      "queryId": "36bdac35-e898-4284-b1cd-92dc6e65933d",
+      "queryName": "Fact_Inventory_Process",
+      "loadEnabled": false
+    },
+    "Dim_Valid": {
+      "queryId": "3dcabcbe-5281-433b-a22c-b0e6f59230ce",
+      "queryName": "Dim_Valid",
+      "loadEnabled": false
+    },
+    "dimdate_DataDestination": {
+      "queryId": "dd55ff5f-b97d-41f7-8005-5edb2bb2a5e1",
+      "queryName": "dimdate_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "inventory_operations_data_DataDestination": {
+      "queryId": "8702cd3a-aec5-4a8c-bad9-e7cd38c53f7b",
+      "queryName": "inventory_operations_data_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Dim_Product_DataDestination": {
+      "queryId": "d7c0078d-32de-4a93-94de-bb282dba6a24",
+      "queryName": "Dim_Product_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Dim_Location_DataDestination": {
+      "queryId": "4ee928b7-2ae2-424d-8d71-b23064182581",
+      "queryName": "Dim_Location_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Dim_Supplier_DataDestination": {
+      "queryId": "556fd1ed-8620-4d66-920b-d03ffe0a6b47",
+      "queryName": "Dim_Supplier_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Dim_Status_DataDestination": {
+      "queryId": "d79e26b8-b2f2-49e6-829f-786bcfb9d474",
+      "queryName": "Dim_Status_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Dim_Valid_DataDestination": {
+      "queryId": "43cc9c99-05d3-462e-9653-6d1a6865ca6e",
+      "queryName": "Dim_Valid_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Fact_Inventory_Process_DataDestination": {
+      "queryId": "c3eb5a29-b293-40af-a3e1-e8d509691fa4",
+      "queryName": "Fact_Inventory_Process_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"78231fce-8c63-41ce-a328-9d7e4ebb0e6e\",\"DatasourceId\":\"e05681c2-cfe3-447c-ab07-5e0d58c37356\"}"
+    }
+  ]
+}

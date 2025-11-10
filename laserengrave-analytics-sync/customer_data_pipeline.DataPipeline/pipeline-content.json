@@ -1,0 +1,295 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "RefreshDataflow",
+        "typeProperties": {
+          "dataflowId": "cb9007a4-b174-4bcd-8559-93d4a39a7efa",
+          "workspaceId": "4ecbaf18-d748-4bd3-b6cd-5743f135f2bf",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric",
+          "parameters": {
+            "LastRefreshDate": {
+              "value": "2025-01-15",
+              "type": "Date"
+            },
+            "EnvironmentFlag": {
+              "value": "DEV",
+              "type": "String"
+            },
+            "validRecordParam": {
+              "value": true,
+              "type": "Bool"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "customer_dataflow_activity",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "533c0323-91c2-4761-9a96-8de914bf30f1",
+          "workspaceId": "4ecbaf18-d748-4bd3-b6cd-5743f135f2bf"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "output_test_nbk",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "customer_dataflow_activity",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "validCount",
+          "value": {
+            "value": "@int(json(activity('output_test_nbk').output.result.exitValue).validCount)\n\n\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "SetValidCount",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "invalidCount",
+          "value": {
+            "value": "@int(json(activity('output_test_nbk').output.result.exitValue).invalidCount)\n\n\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "SetInvalidCount",
+        "description": "Return Invalid Count",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "89c56d92-9200-47ac-bb95-3affb8c82b60",
+          "workspaceId": "4ecbaf18-d748-4bd3-b6cd-5743f135f2bf"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Read_variable_outputs_ntbk",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Total Rows",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "TotalRowCount",
+          "value": {
+            "value": "@int(json(activity('Get Record Count nbk').output.result.exitValue).totalrecords)\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Total Rows",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "69ec0a0c-d2eb-48a1-b792-f1c252171fa2",
+          "workspaceId": "4ecbaf18-d748-4bd3-b6cd-5743f135f2bf"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Get Record Count nbk",
+        "description": "Returns the count of valid, invalid, and total record counts",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "output_test_nbk",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "validCount",
+          "value": {
+            "value": "@int(json(activity('Get Record Count nbk').output.result.exitValue).validCount)\n\n\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "SetValidRecordCount",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Failed Audit",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "invalidCount",
+          "value": {
+            "value": "@int(json(activity('Get Record Count nbk').output.result.exitValue).invalidCount)\n\n\n",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "SetInvalidRecordCount",
+        "description": "Return Invalid Count",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Get Record Count nbk",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@greater(1, 0)",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "TridentNotebook",
+              "typeProperties": {
+                "notebookId": "6adbf95f-f9a8-b580-4cbc-33c13fae3bec",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "EnvironmentFlag": {
+                    "value": "Development",
+                    "type": "string"
+                  },
+                  "RouteInvalidTo": {
+                    "value": "Files/InvalidRecs",
+                    "type": "string"
+                  }
+                }
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "RouteInvalidRows",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Failed Audit",
+        "description": "If invalid records exist, log in audit, partition files, and send notification email",
+        "dependsOn": [
+          {
+            "activity": "SetInvalidRecordCount",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "EnvironmentFlag": {
+        "type": "string",
+        "defaultValue": "DEV"
+      },
+      "RouteInvalidTo": {
+        "type": "string",
+        "defaultValue": "Files/InvalidRows"
+      },
+      "RetryDelaySec": {
+        "type": "int",
+        "defaultValue": 300
+      }
+    },
+    "variables": {
+      "validCount": {
+        "type": "Integer"
+      },
+      "invalidCount": {
+        "type": "Integer"
+      },
+      "TotalRowCount": {
+        "type": "Integer"
+      }
+    }
+  }
+}

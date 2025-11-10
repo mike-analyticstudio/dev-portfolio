@@ -1,0 +1,49 @@
+table AnalysedMetric
+	lineageTag: 782fb667-dbe8-4aa4-bc7a-2ef5c6fbd181
+
+	column AnalysedMetric
+		lineageTag: b40c2d6c-9324-42ce-a465-488d43f7eb19
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'AnalysedMetric Order'
+
+		relatedColumnDetails
+			groupByColumn: 'AnalysedMetric Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AnalysedMetric Fields'
+		isHidden
+		lineageTag: 97a0794b-c79d-454b-803f-54222bf20f66
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'AnalysedMetric Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AnalysedMetric Order'
+		isHidden
+		formatString: 0
+		lineageTag: 0046af79-5185-4279-ba8c-3fcc85859492
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition AnalysedMetric = calculated
+		mode: import
+		source =
+				{
+				    ("Age", NAMEOF('customer_data_cleaned'[age_clean]), 0),
+				    ("country", NAMEOF('customer_data_cleaned'[country_code]), 1),
+				    ("Subscription Type", NAMEOF('customer_data_cleaned'[subscription_type]), 2)
+				}
+
+	annotation PBI_Id = 92769db2d6d141999e9461a741a857b7
+
