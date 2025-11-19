@@ -20,5 +20,5 @@ Inventory Batch process pipeline
 
 ```
 
-
+![utility_batch_process_pipeline](utility_batch_process_pipeline.png)
 
