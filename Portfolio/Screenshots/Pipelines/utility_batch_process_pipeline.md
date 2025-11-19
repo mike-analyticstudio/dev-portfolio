@@ -22,3 +22,5 @@ Pipeline Documentation: utility_batch_process_pipeline
  3. Set Next Frequency Runs
  Type: `SqlServerStoredProcedure`
  Description: Though named so, but this can run for as many times the module is processed.
+
+![utility_batch_process_pipeline](utility_batch_process_pipeline.png)
