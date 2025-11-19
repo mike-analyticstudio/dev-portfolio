@@ -1,15 +1,15 @@
-# 📘 Pipeline Documentation: **utility_Notification_pipeline**
+#  Pipeline Documentation: **utility_Notification_pipeline**
 
 ---
 
-## 📝 Overview
+##  Overview
 
 - **Pipeline name:** utility_Notification_pipeline
 - **Number of activities:** 2
 
 ---
 
-## 🔧 Activities
+##  Activities
 
 ### 1. **Get Contact Details**
 - **Type:** `Lookup`
@@ -18,3 +18,5 @@
 ### 2. **Contact**
 - **Type:** `ForEach`
 - **Description:** Send email notification to business users
+
+![utility_notification_pipeline](utility_notification_pipeline.png)
