@@ -1,8 +1,22 @@
+```
+
 Inventory Batch process pipeline
-	Inventory_process_pipeline (Run Business Systems) -> Operation Status
-						utility_getmetadata_pipeline (Business Pipeline)
-								utility_status_message_pipeline (Send Business Notification) switch to determine email 										message to call based on status of process; success, fail, undefined)
-										utility_notification_pipeline (Handle User Notification - Email module)
-												
-									
-		
+
+&nbsp;   Inventory\_process\_pipeline (Run Business Systems) -> Operation Status
+
+&nbsp;       utility\_getmetadata\_pipeline (Business Pipeline)
+
+&nbsp;           utility\_status\_message\_pipeline 
+
+&nbsp;               (Send Business Notification - switch to determine email 
+
+&nbsp;                message based on status: success, fail, undefined)
+
+&nbsp;                   utility\_notification\_pipeline 
+
+&nbsp;                       (Handle User Notification - Email module)
+
+```
+
+
+
