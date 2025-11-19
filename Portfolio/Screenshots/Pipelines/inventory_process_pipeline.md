@@ -23,4 +23,4 @@
  Type: `ForEach`
  Description: Run in iteration, the sources of files, tables, source picked from the configuration table pick their attributes; files names, file types, source, and target location
 
-![CI-CD Screenshot](CI-CD.png)
+![inventory_process_pipeline](inventory_process_pipeline.png)
