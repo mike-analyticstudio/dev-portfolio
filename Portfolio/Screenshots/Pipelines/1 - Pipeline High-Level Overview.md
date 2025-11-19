@@ -1,4 +1,6 @@
+
 ```
+Workflow steps of the Inventory Source to Target Pipeline process
 
 Inventory Batch process pipeline
 
