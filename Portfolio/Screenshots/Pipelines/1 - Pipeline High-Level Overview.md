@@ -22,4 +22,5 @@ Inventory Batch process pipeline
 
 ![utility_batch_process_pipeline](utility_batch_process_pipeline.png)
 ![inventory_process_pipeline](inventory_process_pipeline.png)
+![utility_get_metadata_pipeline](utility_get_metadata_pipeline.png)
 
