@@ -2,7 +2,7 @@ Portfolio: BI/DWH Modernization in Microsoft Fabric
 
 Overview 
 
-With 15+ years in Business Intelligence and Data Warehousing, I’ve led scalable analytics solutions across industries. This portfolio showcases my transition into 
+With extensive years in Business Intelligence and Data Warehousing, I’ve led scalable analytics solutions across industries. This portfolio showcases my transition into 
 Microsoft Fabric translating legacy ETL logic into cloud-native pipelines, reusable semantic models, and operational dashboards. 
 
 What I’ve Built 
