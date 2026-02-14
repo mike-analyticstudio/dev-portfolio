@@ -10,33 +10,33 @@ Key engineering principles applied:
 
 ---
 
-# 📊 Business Domains Modeled
+#  Business Domains Modeled
 
 To simulate realistic enterprise environments, multiple domains are implemented:
 
-## 🏠 Housing Analytics
+##  Housing Analytics
 - Property sales fact modeling
 - Regional performance analysis
 - Historical attribute tracking (SCD Type 2)
 
-## 🚚 Logistics & Supply Chain
+##  Logistics & Supply Chain
 - Order-to-delivery lifecycle
 - Shipment tracking & SLA performance
 - Event-driven status transitions
 
-## 📉 Customer Churn
+##  Customer Churn
 - Subscription lifecycle modeling
 - Retention & churn metrics
 - Customer dimension SCD implementation
 
-## 💰 Finance & Transactions
+##  Finance & Transactions
 - Revenue & expense tracking
 - Snapshot vs transactional modeling
 - Period-based aggregation strategies
 
 ---
 
-# 🔄 Advanced Data Engineering Patterns Demonstrated
+#  Advanced Data Engineering Patterns Demonstrated
 
 ### Slowly Changing Dimensions (SCD)
 - Type 1 and Type 2 implementations
@@ -74,7 +74,7 @@ To simulate realistic enterprise environments, multiple domains are implemented:
 
 ---
 
-# 🔁 Pipeline Orchestration
+#  Pipeline Orchestration
 
 Fabric pipelines coordinate notebook execution across layers:
 
@@ -88,7 +88,7 @@ Demonstrates end-to-end data flow automation within Microsoft Fabric.
 
 ---
 
-# 🎯 What This Portfolio Demonstrates
+#  What This Portfolio Demonstrates
 
 This repository highlights hands-on capability in:
 
@@ -102,7 +102,7 @@ This repository highlights hands-on capability in:
 
 ---
 
-# 📈 Why This Matters
+#  Why This Matters
 
 Modern data platforms require engineers who can:
 
@@ -116,7 +116,7 @@ This project reflects those competencies in a practical, hands-on format.
 
 ---
 
-# 🚀 How to Run
+#  How to Run
 
 1. Import notebooks into Microsoft Fabric
 2. Attach to a Lakehouse
@@ -127,7 +127,7 @@ This project reflects those competencies in a practical, hands-on format.
 
 ---
 
-# 🔮 Future Enhancements
+#  Future Enhancements
 
 - Streaming ingestion examples
 - Real-time incremental pipelines
@@ -138,7 +138,7 @@ This project reflects those competencies in a practical, hands-on format.
 
 ---
 
-# 👤 About This Project
+#  About This Project
 
 This portfolio was built to demonstrate applied expertise in:
 
