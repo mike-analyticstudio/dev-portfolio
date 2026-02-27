@@ -39,7 +39,9 @@ External References
 - **Azure DevOps Source (Private):** Available on request
 
 
+This repo is a Public repo that showcases Case study + screenshots + technical overviews
 
+Private repo: Full source, data, pipelines, end-to-end workflows, templates, and other utility implementation available on request (client access)
 
 
 

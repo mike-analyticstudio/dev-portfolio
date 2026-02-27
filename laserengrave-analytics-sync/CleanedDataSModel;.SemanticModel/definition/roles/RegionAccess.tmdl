@@ -1,7 +1,0 @@
-role RegionAccess
-	modelPermission: read
-
-	tablePermission UserAccess = [user_email] = USERPRINCIPALNAME()
-
-	annotation PBI_Id = 7bf1c2debf444fc4a9a9f028105c05fd
-
