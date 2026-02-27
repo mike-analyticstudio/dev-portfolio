@@ -3,9 +3,9 @@ Portfolio: BI/DWH Modernization in Microsoft Fabric
 As a specialist in Business Intelligence and Data Warehousing, I’ve led scalable analytics solutions across industries. This portfolio showcases my transition into Microsoft Fabric translating legacy ETL logic into cloud-native pipelines, reusable semantic models, and operational dashboards. 
 
 
-This repo is a Public repo that showcases Case study + screenshots + technical overviews
+- **Public Repo**: This repo is a Public repo that showcases Case study + screenshots + technical overviews
 
-Private repo: Full scripts, data, pipelines, templates, and other utility implementation available on request (client access)
+- **Private repo**: Full scripts, data, pipelines, templates, and other utility implementation available on request (client access)
 
 
 What's Built Here: 

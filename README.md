@@ -2,6 +2,10 @@ Microsoft Fabric Data Engineering & Analytics Portfolio
 
 Welcome to my **Microsoft Fabric Data Engineer Portfolio** — a curated showcase of end-to-end data solutions developed in Microsoft Fabric, Power BI, and Azure DevOps.
 
+- **Public Repo**: This repo is a Public repo that showcases Case study + screenshots + technical overviews
+
+- **Private repo**: Full scripts, data, pipelines, templates, and other utility implementation available on request (client access)
+
 Highlights
 - **Dataflows** – Automated ingestion pipelines using Power Query (M).
 - **Notebooks** – Python and Spark-based transformations in Fabric.
@@ -35,13 +39,10 @@ High Level Fabric Workspace Items [Workspace Artifacts](Portfolio/Screenshots)
 
 
 External References
-- **LinkedIn Portfolio Post:** [Add your LinkedIn link here]
 - **Azure DevOps Source (Private):** Available on request
 
 
-This repo is a Public repo that showcases Case study + screenshots + technical overviews
 
-Private repo: Full source, data, pipelines, end-to-end workflows, templates, and other utility implementation available on request (client access)
 
 
 

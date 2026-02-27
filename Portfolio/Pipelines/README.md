@@ -2,6 +2,10 @@
 
 Automation scripts and pipelines for deploying artifacts across dev/test/prod workspaces.
 
+- **Public Repo**: This repo is a Public repo that showcases Case study + screenshots + technical overviews
+
+- **Private repo**: Full scripts, data, pipelines, templates, and other utility implementation available on request (client access)
+
 ## Files
 
 - `deploy_pipeline.yml` : Deployment pipeline YAML.

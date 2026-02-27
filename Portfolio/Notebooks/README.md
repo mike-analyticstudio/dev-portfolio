@@ -10,6 +10,11 @@ Key engineering principles applied:
 
 ---
 
+- **Public Repo**: This repo is a Public repo that showcases Case study + screenshots + technical overviews
+
+- **Private repo**: Full scripts, data, pipelines, templates, and other utility implementation available on request (client access)
+
+
 #  Business Domains Modeled
 
 To simulate realistic enterprise environments, multiple domains are implemented:
